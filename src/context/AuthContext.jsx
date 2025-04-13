@@ -1,6 +1,9 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+const API_URI =
+  import.meta.env.VITE_API_URI || "https://ecommerce-api-7pf6.onrender.com";
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -17,7 +20,7 @@ export const AuthProvider = ({ children }) => {
   const createUser = async (data) => {
     try {
       setCreateUserLoading(true);
-      const response = await fetch("http://127.0.0.1:3000/api/auth/register", {
+      const response = await fetch(`${API_URI}/api/auth/register`, {
         method: "POST",
         mode: "cors",
         cache: "no-cache",
@@ -47,7 +50,7 @@ export const AuthProvider = ({ children }) => {
   const handleLogin = async (data) => {
     try {
       setCreateUserLoading(true);
-      const response = await fetch("http://127.0.0.1:3000/api/auth/login", {
+      const response = await fetch(`${API_URI}/api/auth/login`, {
         method: "POST",
         mode: "cors",
         cache: "no-cache",
@@ -83,7 +86,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const token = localStorage.getItem("auth-token");
       if (!token) return navigate("/");
-      const response = await fetch("http://127.0.0.1:3000/api/auth/verify", {
+      const response = await fetch(`${API_URI}/api/auth/verify`, {
         method: "GET",
         mode: "cors",
         cache: "no-cache",

@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 
+const API_URI =
+  import.meta.env.VITE_API_URI || "https://ecommerce-api-7pf6.onrender.com";
+
 const useProducts = () => {
   const [pending, setPending] = useState(false);
   const [message, setMessage] = useState({
@@ -11,7 +14,7 @@ const useProducts = () => {
   const getUserProducts = async () => {
     try {
       setPending(true);
-      const response = await fetch("http://127.0.0.1:3000/api/products/user", {
+      const response = await fetch(`${API_URI}/api/products/user`, {
         method: "GET",
         headers: {
           "x-access-token": localStorage.getItem("auth-token"),
@@ -58,17 +61,14 @@ const useProducts = () => {
         }
       });
 
-      const response = await fetch(
-        `http://localhost:3000/api/products/create`,
-        {
-          method: "POST",
-          body: formData, // Send the FormData object
-          headers: {
-            "x-access-token": localStorage.getItem("auth-token"),
-            // Don't set Content-Type header - the browser will set it automatically with the boundary
-          },
-        }
-      );
+      const response = await fetch(`${API_URI}/api/products/create`, {
+        method: "POST",
+        body: formData, // Send the FormData object
+        headers: {
+          "x-access-token": localStorage.getItem("auth-token"),
+          // Don't set Content-Type header - the browser will set it automatically with the boundary
+        },
+      });
 
       if (!response.ok)
         throw {
