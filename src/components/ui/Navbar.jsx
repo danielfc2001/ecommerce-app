@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
-import { AuthContext } from "../../context/authContext";
+import { AuthContext } from "../../context/AuthContext";
 import UserIcon from "../icons/UserIcon";
 import LoginIcon from "../icons/LoginIcon";
 import ThemeToggler from "./ThemeToggler";
