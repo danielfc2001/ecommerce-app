@@ -14,6 +14,7 @@ const useProducts = () => {
   const getUserProducts = async () => {
     try {
       setPending(true);
+      console.log(API_URI);
       const response = await fetch(`${API_URI}/api/products/user`, {
         method: "GET",
         headers: {

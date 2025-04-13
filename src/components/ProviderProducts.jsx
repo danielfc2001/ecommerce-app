@@ -1,5 +1,35 @@
+import { useEffect } from "react";
+import useProducts from "../hooks/useProducts";
+import ProductCard from "./ProductCard";
+
 const ProviderProducts = () => {
-  return <div>Tus Productos</div>;
+  const { message, pending, products, getUserProducts } = useProducts();
+
+  useEffect(() => {
+    getUserProducts();
+  }, []);
+  return (
+    <section>
+      {pending && <div>Cargando productos...</div>}
+      {!pending &&
+        products.length > 0 &&
+        products.map((product) => (
+          <ProductCard
+            key={product._id}
+            name={product.name}
+            price={product.price}
+            img={product.image}
+            isOffer={product.isOffer}
+            stock={product.stock}
+            discount={product.offerDiscount}
+            category={product.category}
+          />
+        ))}
+      {message.type === "error" && (
+        <div>A ocurrido un error al cargar los productos</div>
+      )}
+    </section>
+  );
 };
 
 export default ProviderProducts;
