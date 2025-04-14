@@ -11,6 +11,7 @@ const category = [
   "electrodomesticos",
   "vehiculos",
   "vivienda",
+  "deporte",
 ];
 
 const ProductForm = () => {

@@ -153,6 +153,23 @@ const Register = () => {
             {errors.confirmPassword.message}
           </FormMessage>
         )}
+        <FormInput
+          type={"text"}
+          placeholder={"Nombre de marca (Opcional)"}
+          register={{
+            ...register("brand", {
+              minLength: {
+                value: 2,
+                message:
+                  "Su nombre de marca debe contener al menos 2 caracteres",
+              },
+            }),
+          }}
+          errors={errors.brand}
+        />
+        {errors.brand && (
+          <FormMessage type={"error"}>{errors.brand.message}</FormMessage>
+        )}
         <Turnstile
           siteKey="0x4AAAAAABLSz-YpHRGJq0Ji"
           onSuccess={handleCaptchaSuccess}
