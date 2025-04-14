@@ -3,7 +3,7 @@ import FormMessage from "./FormMessage";
 import PasswordVisibilityIcon from "./icons/PasswordVisibilityIcon";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import FormInput from "./FormInput";
 import FormContainer from "./ui/FormContainer";
 import SpinnerIcon from "./icons/SpinnerIcon";
@@ -27,11 +27,14 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [captchaToken, setCaptchaToken] = useState(null);
+  const [captchaError, setCaptchaError] = useState(null);
 
   const onSubmit = (data) => {
     if (!captchaToken) {
+      setCaptchaError("Debe completar el CAPTCHA para continuar.");
       return;
     }
+    setCaptchaError(null);
     // Aquí puedes manejar la lógica de registro, como enviar los datos a una API
     createUser({
       username: data.username,
@@ -40,6 +43,18 @@ const Register = () => {
       captcha: captchaToken,
     });
   };
+
+  const handleCaptchaSuccess = useCallback((token) => {
+    setCaptchaToken(token);
+  }, []);
+
+  const handleCaptchaError = useCallback(() => {
+    setCaptchaToken(null);
+  }, []);
+
+  const handleCaptchaExpire = useCallback(() => {
+    setCaptchaToken(null);
+  }, []);
 
   useEffect(() => {
     if (user.isAuth) {
@@ -140,10 +155,11 @@ const Register = () => {
         )}
         <Turnstile
           siteKey="0x4AAAAAABLSz-YpHRGJq0Ji"
-          onSuccess={(token) => setCaptchaToken(token)}
-          onError={() => setCaptchaToken(null)}
-          onExpire={() => setCaptchaToken(null)}
+          onSuccess={handleCaptchaSuccess}
+          onError={handleCaptchaError}
+          onExpire={handleCaptchaExpire}
         />
+        {captchaError && <FormMessage type="error">{captchaError}</FormMessage>}
         <div className="w-full flex items-center justify-center mt-2">
           <input
             type="checkbox"
