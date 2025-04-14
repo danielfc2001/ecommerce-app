@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import FormInput from "./FormInput";
 import FormContainer from "./ui/FormContainer";
 import SpinnerIcon from "./icons/SpinnerIcon";
+import Turnstile from "./cloudflare/Turnstile";
 
 const Register = () => {
   const {
@@ -25,13 +26,18 @@ const Register = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState(null);
 
   const onSubmit = (data) => {
+    if (!captchaToken) {
+      return;
+    }
     // Aquí puedes manejar la lógica de registro, como enviar los datos a una API
     createUser({
       username: data.username,
       email: data.email,
       password: data.password,
+      captcha: captchaToken,
     });
   };
 
@@ -132,6 +138,12 @@ const Register = () => {
             {errors.confirmPassword.message}
           </FormMessage>
         )}
+        <Turnstile
+          siteKey="0x4AAAAAABLSz-YpHRGJq0Ji"
+          onSuccess={(token) => setCaptchaToken(token)}
+          onError={() => setCaptchaToken(null)}
+          onExpire={() => setCaptchaToken(null)}
+        />
         <div className="w-full flex items-center justify-center mt-2">
           <input
             type="checkbox"
