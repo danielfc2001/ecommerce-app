@@ -10,31 +10,68 @@ const Navbar = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { user, signOut } = useContext(AuthContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleSignOut = () => {
-    // Lógica para cerrar sesión
     signOut();
   };
 
   return (
-    <nav className="bg-white dark:bg-gray-800 shadow-md">
-      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+    <nav className="sticky top-0 lg:relative bg-white dark:bg-gray-800 shadow-md">
+      <div className="flex flex-col lg:flex-row justify-between items-center mx-auto px-4 py-3">
         {/* Logo */}
-        <div className="text-2xl font-bold text-gray-800 dark:text-white">
-          <Link to="/">ShoesPanel</Link>
+
+        <div className="w-full lg:w-auto flex flex-row justify-between items-center">
+          <Link
+            className="text-2xl font-bold text-gray-800 dark:text-white"
+            to="/"
+          >
+            ShoesPanel
+          </Link>
+          <ThemeToggler
+            className={`block lg:hidden ml-auto mr-2`}
+            onClickEvent={toggleTheme}
+            theme={theme}
+          />
+          {/* Botón de menú móvil */}
+          <button
+            className="lg:hidden text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4 6h16M4 12h16m-7 6h7"
+              />
+            </svg>
+          </button>
         </div>
 
         {/* Navegación */}
-        <div className="flex items-center space-x-6">
+        <div
+          className={`${
+            isMobileMenuOpen
+              ? "block opacity-100 scale-100"
+              : "hidden opacity-0 scale-95"
+          } lg:flex lg:flex-row lg:items-center lg:space-x-6 w-full lg:w-auto mt-5 lg:mt-0 transition-all duration-300 ease-in-out transform`}
+        >
           <Link
             to="/"
-            className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition"
+            className="block text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition py-1 lg:py-0"
           >
             Inicio
           </Link>
           <Link
             to="/products"
-            className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition"
+            className="block text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition py-1 lg:py-0"
           >
             Productos
           </Link>
@@ -54,7 +91,7 @@ const Navbar = () => {
               {/* Dropdown menu */}
               {isDropdownOpen && (
                 <div
-                  className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-lg shadow-lg py-2"
+                  className="relative lg:absolute w-full right-0 mt-2 lg:w-48 bg-white dark:bg-gray-700 rounded-lg shadow-lg py-2"
                   onMouseLeave={() => setIsDropdownOpen(false)}
                 >
                   <Link
@@ -85,7 +122,11 @@ const Navbar = () => {
             </>
           )}
           {/* Botón de tema */}
-          <ThemeToggler onClickEvent={toggleTheme} theme={theme} />
+          <ThemeToggler
+            className={`hidden lg:block`}
+            onClickEvent={toggleTheme}
+            theme={theme}
+          />
         </div>
       </div>
     </nav>

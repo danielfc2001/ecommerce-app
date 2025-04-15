@@ -1,8 +1,8 @@
-const ThemeToggler = ({ onClickEvent, theme }) => {
+const ThemeToggler = ({ onClickEvent, theme, className }) => {
   return (
     <button
       onClick={onClickEvent}
-      className="p-2 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+      className={`${className} p-2 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition`}
       aria-label="Toggle Theme"
     >
       {theme === "light" ? (
