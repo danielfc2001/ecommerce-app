@@ -11,9 +11,7 @@ const DashProvider = () => {
   return (
     <>
       <DashboardSidebar title="Proveedor" links={links} />
-      <section className="w-full p-5">
-        <Outlet />
-      </section>
+      <Outlet />
     </>
   );
 };
