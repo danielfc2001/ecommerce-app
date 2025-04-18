@@ -58,9 +58,7 @@ const Navbar = () => {
         {/* Navegación */}
         <div
           className={`${
-            isMobileMenuOpen
-              ? "block opacity-100 scale-100"
-              : "hidden opacity-0 scale-95"
+            isMobileMenuOpen ? "block opacity-100 scale-100" : "hidden"
           } lg:flex lg:flex-row lg:items-center lg:space-x-6 w-full lg:w-auto mt-5 lg:mt-0 transition-all duration-300 ease-in-out transform`}
         >
           <Link

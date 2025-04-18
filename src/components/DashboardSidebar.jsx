@@ -35,7 +35,7 @@ const DashboardSidebar = ({ title = "Sidebar", links }) => {
       <nav
         className={`flex flex-col space-y-2 mt-4 transition-all duration-300 ease-in-out ${
           isMenuOpen ? "block" : "hidden"
-        } lg:block`}
+        }`}
       >
         {links.map((link, index) => (
           <NavLink

@@ -22,7 +22,7 @@ const Dashboard = () => {
       <div className="bg-gray-300 py-0.5 mx-10 mt-5"></div>
       <DashboardNav />
       <div className="bg-gray-300 py-0.5 mx-10"></div>
-      <section className="w-ful block lg:flex lg:flex-row lg:gap-3 px-10">
+      <section className="w-full block lg:flex lg:flex-row lg:items-start lg:gap-3 px-10">
         <Outlet />
       </section>
     </section>

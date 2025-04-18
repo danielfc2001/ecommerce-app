@@ -13,6 +13,7 @@ import ProviderProducts from "./components/ProviderProducts";
 import ProviderCreateForm from "./components/ProviderCreateForm";
 import ProviderPreferences from "./components/ProviderPreferences";
 import ProviderIndex from "./components/ProviderIndex";
+import { Toaster } from "sonner";
 
 const App = () => {
   return (
@@ -42,6 +43,7 @@ const App = () => {
             </Route>
           </Route>
         </Routes>
+        <Toaster position="bottom-center" richColors />
       </ThemeProvider>
     </AuthProvider>
   );

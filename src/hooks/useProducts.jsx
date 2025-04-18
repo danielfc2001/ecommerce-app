@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const API_URI =
   import.meta.env.VITE_API_URI || "https://ecommerce-api-7pf6.onrender.com";
@@ -94,6 +95,31 @@ const useProducts = () => {
     }
   };
 
+  const deleteProduct = async (id) => {
+    try {
+      setPending(true);
+      const response = await fetch(`${API_URI}/api/products/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+          "x-access-token": localStorage.getItem("auth-token"),
+        },
+      });
+      if (!response.ok)
+        throw {
+          message:
+            "A ocurrido un error al eliminar el producto. Vuelva a intentarlo.",
+        };
+      toast.success("Se a eliminado el producto correctamente.");
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    } finally {
+      setPending(false);
+      const newProducts = products.filter((product) => product._id !== id);
+      setProducts(newProducts);
+    }
+  };
+
   useEffect(() => {
     if (message.message) {
       const timeout = setTimeout(() => {
@@ -112,6 +138,7 @@ const useProducts = () => {
     products,
     getUserProducts,
     createNewProduct,
+    deleteProduct,
   };
 };
 

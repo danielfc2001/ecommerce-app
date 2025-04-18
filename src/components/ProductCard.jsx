@@ -1,4 +1,9 @@
+import useProducts from "../hooks/useProducts";
+import SpinnerIcon from "./icons/SpinnerIcon";
+import TrashIcon from "./icons/TrashIcon";
+
 const ProductCard = ({
+  id,
   name,
   price,
   img,
@@ -7,12 +12,12 @@ const ProductCard = ({
   discount,
   category,
 }) => {
+  const { pending, deleteProduct } = useProducts();
   const finalPrice = isOffer
     ? (price - (price * discount) / 100).toFixed(2)
     : price;
-
   return (
-    <article className="flex flex-col my-6 bg-white dark:bg-gray-800 shadow-sm border border-slate-200 dark:border-gray-700 rounded-lg w-full sm:w-1/2 lg:w-1/3 xl:w-1/4">
+    <article className="flex flex-col my-6 bg-white dark:bg-gray-800 shadow-sm border border-slate-200 dark:border-gray-700 rounded-lg w-full">
       {/* Imagen del producto */}
       <div className="relative p-2.5 h-64 overflow-hidden rounded-t-lg bg-clip-border">
         <img
@@ -70,11 +75,30 @@ const ProductCard = ({
           Details
         </button>
         <button
-          className="rounded-md w-full mt-2 bg-red-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-red-700 focus:shadow-none active:bg-red-700 hover:bg-red-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none cursor-pointer"
+          className="flex flex-row items-center justify-center rounded-md w-full mt-2 bg-red-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-red-700 focus:shadow-none active:bg-red-700 hover:bg-red-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none cursor-pointer"
           type="button"
           disabled={stock === 0}
+          onClick={() => {
+            if (
+              window.confirm(
+                "¿Estás seguro de que quieres eliminar este producto?"
+              )
+            ) {
+              deleteProduct(id);
+            }
+          }}
         >
-          Eliminar
+          {pending ? (
+            <>
+              <SpinnerIcon width={16} height={16} />
+              Eliminando
+            </>
+          ) : (
+            <>
+              <TrashIcon width={16} height={16} />
+              Eliminar
+            </>
+          )}
         </button>
       </div>
     </article>
