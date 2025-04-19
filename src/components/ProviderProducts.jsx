@@ -1,22 +1,41 @@
-import { useEffect } from "react";
-import useProducts from "../hooks/useProducts";
 import ProductCard from "./ProductCard";
 import DashboardSearchBar from "./DashboardSearchBar";
+import { useQuery } from "@tanstack/react-query";
+import { getProviderProducts } from "../services/providerProducts";
 
 const ProviderProducts = () => {
-  const { message, pending, products, getUserProducts } = useProducts();
+  const { isError, error, isPending, isSuccess, data } = useQuery({
+    queryKey: ["providerProducts"],
+    queryFn: getProviderProducts,
+  });
 
-  useEffect(() => {
-    getUserProducts();
-  }, []);
   return (
     <section className="w-full">
-      <DashboardSearchBar />
+      <DashboardSearchBar className={`mt-5`} />
+      {isSuccess && data.products.length > 0 && (
+        <div className="w-full bg-green-500 text-white text-center rounded-md p-2 my-2">
+          Los productos han sido cargados satisfactoriamente.
+        </div>
+      )}
+      {isSuccess && data.products.length === 0 && (
+        <div className="w-full bg-yellow-500 text-white text-center rounded-md p-2 my-2">
+          No tienes productos creados. Crea uno para comenzar a vender.
+        </div>
+      )}
+      {isError && (
+        <div className="w-full bg-red-500 text-white text-center rounded-md p-2 my-2">
+          {error.message}
+        </div>
+      )}
+      {isPending && (
+        <div className="w-full bg-yellow-500 text-white text-center rounded-md p-2 my-2">
+          Cargando productos...
+        </div>
+      )}
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {pending && <div>Cargando productos...</div>}
-        {!pending &&
-          products.length > 0 &&
-          products.map((product) => (
+        {!isPending &&
+          !isError &&
+          data.products.map((product) => (
             <ProductCard
               key={product._id}
               id={product._id}
@@ -29,9 +48,6 @@ const ProviderProducts = () => {
               category={product.category}
             />
           ))}
-        {message.type === "error" && (
-          <div>A ocurrido un error al cargar los productos</div>
-        )}
       </div>
     </section>
   );

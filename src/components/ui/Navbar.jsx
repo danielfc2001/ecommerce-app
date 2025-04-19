@@ -26,7 +26,7 @@ const Navbar = () => {
             className="text-2xl font-bold text-gray-800 dark:text-white"
             to="/"
           >
-            ShoesPanel
+            Commerce App
           </Link>
           <ThemeToggler
             className={`block lg:hidden ml-auto mr-2`}
@@ -111,7 +111,7 @@ const Navbar = () => {
           {!user.isAuth && (
             <>
               <Link
-                to={"/login"}
+                to={"/auth/login"}
                 className="flex flex-row justify-center items-center gap-1 rounded-xl py-2 px-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:text-gray-100 transition-all duration-100 ease-in-out"
               >
                 Inicia Sesion

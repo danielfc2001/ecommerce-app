@@ -14,36 +14,44 @@ import ProviderCreateForm from "./components/ProviderCreateForm";
 import ProviderPreferences from "./components/ProviderPreferences";
 import ProviderIndex from "./components/ProviderIndex";
 import { Toaster } from "sonner";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Home from "./pages/Home";
+import Products from "./pages/Products";
+
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
     <AuthProvider>
       <ThemeProvider>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Auth />}>
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-          </Route>
-
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          >
-            <Route path="client" element={<DashClient />} />
-            <Route path="provider" element={<DashProvider />}>
-              <Route index element={<ProviderIndex />} />
-              <Route path="products" element={<ProviderProducts />} />
-              <Route path="create" element={<ProviderCreateForm />} />
-              <Route path="preferences" element={<ProviderPreferences />} />
+        <QueryClientProvider client={queryClient}>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/auth" element={<Auth />}>
+              <Route path="login" element={<Login />} />
+              <Route path="register" element={<Register />} />
             </Route>
-          </Route>
-        </Routes>
-        <Toaster position="bottom-center" richColors />
+            <Route path="/products" element={<Products />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            >
+              <Route path="client" element={<DashClient />} />
+              <Route path="provider" element={<DashProvider />}>
+                <Route index element={<ProviderIndex />} />
+                <Route path="products" element={<ProviderProducts />} />
+                <Route path="create" element={<ProviderCreateForm />} />
+                <Route path="preferences" element={<ProviderPreferences />} />
+              </Route>
+            </Route>
+          </Routes>
+          <Toaster position="bottom-center" richColors />
+        </QueryClientProvider>
       </ThemeProvider>
     </AuthProvider>
   );

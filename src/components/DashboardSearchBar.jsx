@@ -1,8 +1,10 @@
 import SearchIcon from "./icons/SearchIcon";
 
-const DashboardSearchBar = () => {
+const DashboardSearchBar = ({ className }) => {
   return (
-    <form className="w-full flex flex-row items-center justify-between gap-3 mt-5">
+    <form
+      className={`flex flex-row items-center justify-between gap-3 ${className}`}
+    >
       <input
         type="search"
         placeholder="Buscar productos..."

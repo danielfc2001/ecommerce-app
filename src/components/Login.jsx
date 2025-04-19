@@ -97,7 +97,7 @@ const Login = () => {
         )}
         <p className="text-sm mt-2 dark:text-white">
           No tienes una cuenta?{" "}
-          <Link to="/register" className="text-blue-500 hover:underline">
+          <Link to="/auth/register" className="text-blue-500 hover:underline">
             Registrate
           </Link>
         </p>
