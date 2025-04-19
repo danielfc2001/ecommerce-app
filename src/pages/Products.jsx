@@ -31,7 +31,7 @@ const Products = () => {
   };
 
   return (
-    <div className="w-full dark:bg-gray-900 p-5 pt-10">
+    <div className="w-full dark:bg-gray-900 px-10 pt-10">
       <DashboardSearchBar className={`w-3/4 mx-auto`} />
       <section className="w-full mt-5">
         <h2 className="text-3xl text-gray-900 dark:text-white mb-2">
@@ -70,9 +70,10 @@ const Products = () => {
                     price={product.price}
                     img={product.image}
                     isOffer={product.isOffer}
-                    stock={product.stock}
                     discount={product.offerDiscount}
                     category={product.category}
+                    dispatchEvent={"self"}
+                    view={"global"}
                   />
                 </div>
               ))}

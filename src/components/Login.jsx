@@ -6,6 +6,8 @@ import PasswordVisibilityIcon from "./icons/PasswordVisibilityIcon";
 import { useAuth } from "../hooks/useAuth";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import FormMessage from "./FormMessage";
+import PrimaryButton from "./ui/PrimaryButton";
+import LoginIcon from "./icons/LoginIcon";
 
 const Login = () => {
   const {
@@ -83,12 +85,10 @@ const Login = () => {
         {errors.password && (
           <FormMessage type="error">{errors.password.message}</FormMessage>
         )}
-        <button
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition duration-200 ease-in-out"
-          disabled={createUserLoading}
-        >
-          {createUserLoading ? "Cargando..." : "Acceder"}
-        </button>
+        <PrimaryButton isPending={createUserLoading}>
+          <span className="mr-1">Acceder</span>
+          <LoginIcon width={16} height={16} />
+        </PrimaryButton>
         {createUserError && (
           <FormMessage type="error">{createUserError}</FormMessage>
         )}

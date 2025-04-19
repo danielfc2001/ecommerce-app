@@ -46,6 +46,8 @@ const ProviderProducts = () => {
               stock={product.stock}
               discount={product.offerDiscount}
               category={product.category}
+              dispatchEvent={"button"}
+              view={"provider"}
             />
           ))}
       </div>

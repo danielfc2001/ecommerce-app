@@ -6,8 +6,9 @@ import { useAuth } from "../hooks/useAuth";
 import { useCallback, useEffect, useState } from "react";
 import FormInput from "./FormInput";
 import FormContainer from "./ui/FormContainer";
-import SpinnerIcon from "./icons/SpinnerIcon";
 import Turnstile from "./cloudflare/Turnstile";
+import PrimaryButton from "./ui/PrimaryButton";
+import UserPlus from "./icons/UserPlus";
 
 const Register = () => {
   const {
@@ -192,18 +193,10 @@ const Register = () => {
         {errors.terms && (
           <FormMessage type="error">{errors.terms.message}</FormMessage>
         )}
-        <button
-          className="w-full flex flex-row justify-center items-center bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition duration-200 ease-in-out cursor-pointer"
-          disabled={createUserLoading}
-        >
-          {createUserLoading ? (
-            <>
-              <SpinnerIcon /> <span>Cargando...</span>
-            </>
-          ) : (
-            "Crear Cuenta"
-          )}
-        </button>
+        <PrimaryButton isPending={createUserLoading}>
+          <UserPlus width={16} height={16} />
+          <span className="ml-2">Crear cuenta</span>
+        </PrimaryButton>
         {createUserError && (
           <FormMessage type="error">{createUserError}</FormMessage>
         )}

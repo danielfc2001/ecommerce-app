@@ -17,6 +17,7 @@ import { Toaster } from "sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
+import Footer from "./components/ui/Footer";
 
 const queryClient = new QueryClient();
 
@@ -50,6 +51,7 @@ const App = () => {
               </Route>
             </Route>
           </Routes>
+          <Footer />
           <Toaster position="bottom-center" richColors />
         </QueryClientProvider>
       </ThemeProvider>
