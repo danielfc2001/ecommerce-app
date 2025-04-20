@@ -199,7 +199,6 @@ const ProductForm = () => {
             className="hidden"
             ref={fileInputRef}
             {...register("image", {
-              required: "La imagen es requerida",
               onChange: handleImageChange,
             })}
           />

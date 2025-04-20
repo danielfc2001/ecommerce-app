@@ -82,7 +82,7 @@ const useProducts = () => {
         message: responseData.message,
         type: "success",
       });
-      return true;
+      if (responseData) return true;
     } catch (err) {
       console.log(err);
       setMessage({

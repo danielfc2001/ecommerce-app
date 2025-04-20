@@ -15,6 +15,7 @@ const Products = () => {
   const [canScrollRight, setCanScrollRight] = useState(false);
 
   useEffect(() => {
+    console.log(data);
     if (sliderRef.current) {
       const { scrollWidth, clientWidth } = sliderRef.current;
       setCanScrollLeft(sliderRef.current.scrollLeft > 0);
@@ -33,10 +34,8 @@ const Products = () => {
   return (
     <div className="w-full dark:bg-gray-900 px-10 pt-10">
       <DashboardSearchBar className={`w-3/4 mx-auto`} />
-      <section className="w-full mt-5">
-        <h2 className="text-3xl text-gray-900 dark:text-white mb-2">
-          Ofertas del día:
-        </h2>
+      <section className="w-full rounded-lg mt-5 p-2">
+        <h2 className="text-3xl text-gray-900 dark:text-white">Ofertas</h2>
 
         {/* Mensajes de carga o error */}
         {isPending && (
@@ -60,22 +59,20 @@ const Products = () => {
               className="flex overflow-x-auto gap-4 scrollbar-hide scroll-smooth"
             >
               {data.products?.map((product) => (
-                <div
+                <ProductCard
                   key={product._id}
-                  className="flex-shrink-0 w-64" // Tamaño reducido de las tarjetas
-                >
-                  <ProductCard
-                    id={product._id}
-                    name={product.name}
-                    price={product.price}
-                    img={product.image}
-                    isOffer={product.isOffer}
-                    discount={product.offerDiscount}
-                    category={product.category}
-                    dispatchEvent={"self"}
-                    view={"global"}
-                  />
-                </div>
+                  id={product._id}
+                  name={product.name}
+                  price={product.price}
+                  img={product.image}
+                  isOffer={product.isOffer}
+                  discount={product.offerDiscount}
+                  category={product.category}
+                  currency={product.currency}
+                  dispatchEvent={"self"}
+                  view={"global"}
+                  className={`w-56`}
+                />
               ))}
             </div>
 

@@ -11,19 +11,23 @@ const ProductCard = ({
   isOffer,
   discount,
   category,
+  currency,
   dispatchEvent,
   view,
+  className,
 }) => {
   const { pending, deleteProduct } = useProducts();
   const finalPrice = isOffer
     ? (price - (price * discount) / 100).toFixed(2)
     : price;
   return (
-    <article className="flex flex-col my-6 bg-white dark:bg-gray-800 shadow-sm border border-slate-200 dark:border-gray-700 rounded-lg w-full">
+    <article
+      className={`flex flex-col my-6 bg-white dark:bg-gray-800 shadow-sm border border-slate-200 dark:border-gray-700 rounded-lg ${className}`}
+    >
       {/* Imagen del producto */}
-      <div className="relative p-2.5 h-64 overflow-hidden rounded-t-lg bg-clip-border">
+      <div className="relative h-64 overflow-hidden rounded-t-lg bg-clip-border">
         <img
-          src={img}
+          src={img || `/images/image-not-found.png`}
           alt={name}
           className="h-full w-full object-cover rounded-md"
         />
@@ -35,21 +39,22 @@ const ProductCard = ({
       </div>
 
       {/* Detalles del producto */}
-      <div className="p-4">
-        <div className="mb-2 flex flex-col items-center justify-between">
-          <p className="text-slate-800 dark:text-gray-200 text-xl font-semibold">
+      <div className="p-3">
+        <div className="flex flex-col items-center justify-between mb-2 ">
+          <p className=" text-slate-800 dark:text-gray-200 text-lg font-semibold">
             {name}
           </p>
           {/* Categoría */}
           <p className="text-sm text-gray-600 dark:text-gray-400 italic">
-            {category}
+            {category.charAt(0).toUpperCase() + category.slice(1)}
           </p>
-          <div className="flex justify-between items-center w-full mt-3">
-            <p className="text-xl font-semibold text-cyan-900 dark:text-cyan-400">
-              Price:
+          <div className="flex justify-between items-center w-full mt-1">
+            <p className="text-md font-semibold text-cyan-900 dark:text-cyan-400">
+              Precio:
             </p>
-            <p className="text-cyan-600 dark:text-cyan-300 text-xl font-semibold">
+            <p className="text-cyan-600 dark:text-cyan-300 text-md font-semibold">
               ${finalPrice}
+              <span className="ml-1">{currency}</span>
             </p>
           </div>
         </div>
