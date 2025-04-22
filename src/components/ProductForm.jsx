@@ -4,15 +4,7 @@ import FormInput from "./FormInput";
 import FormMessage from "./FormMessage";
 import { useState, useRef } from "react";
 import SubmitBtn from "./SubmitBtn";
-
-const category = [
-  "alimentos",
-  "ropa",
-  "electrodomesticos",
-  "vehiculos",
-  "vivienda",
-  "deporte",
-];
+import { category } from "../utils/categories";
 
 const ProductForm = () => {
   const {

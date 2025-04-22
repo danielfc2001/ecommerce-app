@@ -48,6 +48,7 @@ const ProviderProducts = () => {
               category={product.category}
               dispatchEvent={"button"}
               view={"provider"}
+              width={`full`}
             />
           ))}
       </div>

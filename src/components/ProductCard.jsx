@@ -15,6 +15,7 @@ const ProductCard = ({
   dispatchEvent,
   view,
   className,
+  width,
 }) => {
   const { pending, deleteProduct } = useProducts();
   const finalPrice = isOffer
@@ -39,7 +40,7 @@ const ProductCard = ({
       </div>
 
       {/* Detalles del producto */}
-      <div className="p-3">
+      <div className={`${`w-` + width} grow justify-between p-3`}>
         <div className="flex flex-col items-center justify-between mb-2 ">
           <p className=" text-slate-800 dark:text-gray-200 text-lg font-semibold">
             {name}
@@ -48,9 +49,9 @@ const ProductCard = ({
           <p className="text-sm text-gray-600 dark:text-gray-400 italic">
             {category.charAt(0).toUpperCase() + category.slice(1)}
           </p>
-          <div className="flex justify-between items-center w-full mt-1">
-            <p className="text-md font-semibold text-cyan-900 dark:text-cyan-400">
-              Precio:
+          <div className="flex flex-col text-end w-full">
+            <p className="text-cyan-500 dark:text-cyan-400 text-sm line-through font-light">
+              ${price}
             </p>
             <p className="text-cyan-600 dark:text-cyan-300 text-md font-semibold">
               ${finalPrice}
