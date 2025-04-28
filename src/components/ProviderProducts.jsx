@@ -2,6 +2,7 @@ import ProductCard from "./ProductCard";
 import DashboardSearchBar from "./DashboardSearchBar";
 import { useQuery } from "@tanstack/react-query";
 import { getProviderProducts } from "../services/providerProducts";
+import Message from "./ui/Message";
 
 const ProviderProducts = () => {
   const { isError, error, isPending, isSuccess, data } = useQuery({
@@ -13,25 +14,17 @@ const ProviderProducts = () => {
     <section className="w-full">
       <DashboardSearchBar className={`mt-5`} />
       {isSuccess && data.products.length > 0 && (
-        <div className="w-full bg-green-500 text-white text-center rounded-md p-2 my-2">
-          Los productos han sido cargados satisfactoriamente.
-        </div>
+        <Message type={"success"}>
+          Los productos han sido cargados satisfactoriamente
+        </Message>
       )}
       {isSuccess && data.products.length === 0 && (
-        <div className="w-full bg-yellow-500 text-white text-center rounded-md p-2 my-2">
+        <Message type={"warning"}>
           No tienes productos creados. Crea uno para comenzar a vender.
-        </div>
+        </Message>
       )}
-      {isError && (
-        <div className="w-full bg-red-500 text-white text-center rounded-md p-2 my-2">
-          {error.message}
-        </div>
-      )}
-      {isPending && (
-        <div className="w-full bg-yellow-500 text-white text-center rounded-md p-2 my-2">
-          Cargando productos...
-        </div>
-      )}
+      {isError && <Message type={"error"}>{error.message}</Message>}
+      {isPending && <Message type={"warning"}>Cargando Productos</Message>}
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         {!isPending &&
           !isError &&

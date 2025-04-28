@@ -14,7 +14,6 @@ const ProductCard = ({
   currency,
   dispatchEvent,
   view,
-  className,
   width,
 }) => {
   const { pending, deleteProduct } = useProducts();
@@ -23,10 +22,14 @@ const ProductCard = ({
     : price;
   return (
     <article
-      className={`flex flex-col my-6 bg-white dark:bg-gray-800 shadow-sm border border-slate-200 dark:border-gray-700 rounded-lg ${className}`}
+      className={`flex flex-col bg-white dark:bg-gray-800 shadow-sm border border-slate-200 dark:border-gray-700 rounded-lg`}
     >
       {/* Imagen del producto */}
-      <div className="relative h-64 overflow-hidden rounded-t-lg bg-clip-border">
+      <div
+        className={`${
+          `w-` + width
+        } relative h-64 overflow-hidden rounded-t-lg bg-clip-border `}
+      >
         <img
           src={img || `/images/image-not-found.png`}
           alt={name}
@@ -40,7 +43,7 @@ const ProductCard = ({
       </div>
 
       {/* Detalles del producto */}
-      <div className={`${`w-` + width} grow justify-between p-3`}>
+      <div className={`flex flex-col justify-between px-3 py-2`}>
         <div className="flex flex-col items-center justify-between mb-2 ">
           <p className=" text-slate-800 dark:text-gray-200 text-lg font-semibold">
             {name}
@@ -79,7 +82,7 @@ const ProductCard = ({
         {/* Botón de detalles */}
         {dispatchEvent === "button" && (
           <button
-            className="rounded-md w-full mt-6 bg-cyan-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-cyan-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none cursor-pointer"
+            className="rounded-md w-full mt-2 bg-cyan-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-cyan-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none cursor-pointer"
             type="button"
             disabled={stock === 0}
           >
