@@ -9,7 +9,7 @@ const ProductsNav = ({ current, next, prev, onClickPrev, onClickNext }) => {
         <ArrowLeftIcon width={20} height={20} />
       </PagButton>
       <PagButton disabled={prev === null}>{prev || "."}</PagButton>
-      <PagButton disabled={current === null}>{current}</PagButton>
+      <PagButton disabled={current === null}>{current || 1}</PagButton>
       <PagButton disabled={next === null}>{next || "."}</PagButton>
       <PagButton disabled={next === null} onClick={onClickNext}>
         <ArrowRightIcon width={20} height={20} />
