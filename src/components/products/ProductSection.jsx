@@ -3,21 +3,37 @@ import { getGlobalProducts } from "../../services/products";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import ProductCard from "../ProductCard";
 import ProductsNav from "./ProductsNav";
+import Message from "../ui/Message";
+import CardLoader from "../ui/CardLoader";
 
-const ProductSection = () => {
+const ProductSection = ({ category }) => {
   const [page, setPage] = useState(1);
-  const { isPending, isError, error, data, isFetching, isPlaceholderData } =
-    useQuery({
-      queryKey: ["products", page],
-      queryFn: () => getGlobalProducts(page),
-      placeholderData: keepPreviousData,
-    });
+  const { isPending, isError, error, data, isFetching } = useQuery({
+    queryKey: ["products", page, category],
+    queryFn: () => getGlobalProducts(page, category),
+    placeholderData: keepPreviousData,
+  });
+
+  const handleNextPage = () => {
+    if (data.hasNextPage) {
+      setPage(data.currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (data.hasPrevPage) {
+      setPage(data.currentPage - 1);
+    }
+  };
+
+  // Falta agregar el estado de carga del componente y el mensaje de error.
   return (
     <section>
       <h1 className="text-2xl text-center font-semibold dark:text-white">
         Our Products
       </h1>
-
+      {isError && <Message type={"error"} message={error.message} />}
+      {isPending && <CardLoader count={10} />}
       {!isPending && !isError && !isFetching && (
         <>
           <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mt-5">
@@ -45,6 +61,8 @@ const ProductSection = () => {
             current={data.currentPage ? data.currentPage : 1}
             next={data.hasNextPage ? data.nextPage : null}
             prev={data.hasPrevPage ? data.prevPage : null}
+            onClickPrev={handlePrevPage}
+            onClickNext={handleNextPage}
           />
         </>
       )}

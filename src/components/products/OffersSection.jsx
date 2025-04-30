@@ -1,14 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getGlobalOfferProducts } from "../../services/products";
 import useProductsScroll from "../../hooks/useProductsScroll";
 import { useEffect } from "react";
 import ProductCard from "../ProductCard";
 import ScrollButton from "./ScrollButton";
 
-const OffersSection = () => {
+const OffersSection = ({ category }) => {
   const { isError, isPending, error, data } = useQuery({
-    queryKey: ["offerProducts"],
-    queryFn: getGlobalOfferProducts,
+    queryKey: ["offerProducts", category],
+    queryFn: () => getGlobalOfferProducts(category),
+    placeholderData: keepPreviousData,
   });
   const {
     canScrollLeft,
