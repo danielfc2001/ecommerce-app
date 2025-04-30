@@ -33,7 +33,11 @@ const ProductSection = ({ category }) => {
         Our Products
       </h1>
       {isError && <Message type={"error"} message={error.message} />}
-      {isPending && <CardLoader count={10} />}
+      {isPending && (
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mt-5">
+          <CardLoader count={10} />
+        </section>
+      )}
       {!isPending && !isError && !isFetching && (
         <>
           <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mt-5">
@@ -48,9 +52,10 @@ const ProductSection = ({ category }) => {
                   price={product.price}
                   img={product.image}
                   isOffer={product.isOffer}
-                  stock={product.stock}
                   discount={product.offerDiscount}
                   category={product.category}
+                  currency={product.currency}
+                  alterCurrency={product.alterCurrency}
                   dispatchEvent={"button"}
                   view={"global"}
                   width={`full`}

@@ -1,6 +1,8 @@
+import { useContext } from "react";
 import useProducts from "../hooks/useProducts";
 import SpinnerIcon from "./icons/SpinnerIcon";
 import TrashIcon from "./icons/TrashIcon";
+import { ThemeContext } from "../context/ThemeContext";
 
 const ProductCard = ({
   id,
@@ -12,10 +14,12 @@ const ProductCard = ({
   discount,
   category,
   currency,
+  alterCurrency,
   dispatchEvent,
   view,
   width,
 }) => {
+  const { exchange } = useContext(ThemeContext);
   const { pending, deleteProduct } = useProducts();
   const finalPrice = isOffer
     ? (price - (price * discount) / 100).toFixed(2)
@@ -28,7 +32,7 @@ const ProductCard = ({
       <div
         className={`${
           `w-` + width
-        } relative h-64 overflow-hidden rounded-t-lg bg-clip-border `}
+        } relative h-64 overflow-hidden rounded-t-lg bg-clip-border z-30`}
       >
         <img
           src={img || `/images/image-not-found.png`}
@@ -60,6 +64,12 @@ const ProductCard = ({
               ${finalPrice}
               <span className="ml-1">{currency}</span>
             </p>
+            {alterCurrency && (
+              <p className="text-cyan-600 dark:text-cyan-300 text-md font-semibold">
+                ${parseFloat(finalPrice) * parseInt(exchange)}
+                <span className="ml-1"></span>
+              </p>
+            )}
           </div>
         </div>
 

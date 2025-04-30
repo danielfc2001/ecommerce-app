@@ -1,8 +1,10 @@
 import { createContext, useEffect, useState } from "react";
+import { getExchangeRate } from "../services/exchangeRate";
 
 export const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
+  const [exchange, setExchange] = useState(null);
   const [theme, setTheme] = useState("light");
   useEffect(() => {
     // Configurar el tema inicial basado en el sistema o preferencia previa
@@ -13,6 +15,14 @@ export const ThemeProvider = ({ children }) => {
     } else {
       document.getElementById("root").classList.remove("dark");
     }
+  }, []);
+
+  useEffect(() => {
+    getExchangeRate().then((data) => {
+      if (data) {
+        setExchange(data.value);
+      }
+    });
   }, []);
 
   const toggleTheme = () => {
@@ -26,7 +36,7 @@ export const ThemeProvider = ({ children }) => {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ exchange, theme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );

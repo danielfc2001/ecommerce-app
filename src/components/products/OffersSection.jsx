@@ -4,6 +4,7 @@ import useProductsScroll from "../../hooks/useProductsScroll";
 import { useEffect } from "react";
 import ProductCard from "../ProductCard";
 import ScrollButton from "./ScrollButton";
+import CardLoader from "../ui/CardLoader";
 
 const OffersSection = ({ category }) => {
   const { isError, isPending, error, data } = useQuery({
@@ -26,8 +27,8 @@ const OffersSection = ({ category }) => {
     <section className="w-full rounded-lg mt-5 p-2">
       {/* Mensajes de carga o error */}
       {isPending && (
-        <div className="w-full bg-yellow-500 text-white text-center rounded-md p-2 my-2">
-          Cargando productos...
+        <div className="w-full my-2">
+          <CardLoader />
         </div>
       )}
       {isError && (
@@ -56,9 +57,10 @@ const OffersSection = ({ category }) => {
                 discount={product.offerDiscount}
                 category={product.category}
                 currency={product.currency}
+                alterCurrency={product.alterCurrency}
                 dispatchEvent={"button"}
                 view={"global"}
-                width={`60`}
+                width={`80`}
               />
             ))}
           </div>
