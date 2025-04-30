@@ -20,7 +20,7 @@ const ProductCard = ({
   view,
   width,
 }) => {
-  const { exchange } = useContext(ThemeContext);
+  const { exchange, isExchangeLoading } = useContext(ThemeContext);
   const { pending, deleteProduct } = useProducts();
   const finalPrice = isOffer
     ? (price - (price * discount) / 100).toFixed(2)
@@ -65,7 +65,13 @@ const ProductCard = ({
             </p>
             {alterCurrency && (
               <p className="flex flex-row justify-end items-center text-cyan-700 dark:text-cyan-400 text-xs font-medium">
-                ${parseFloat(finalPrice) * parseInt(exchange)}
+                {isExchangeLoading ? (
+                  <SpinnerIcon width={12} height={12} />
+                ) : (
+                  <span>
+                    ${Math.ceil(parseFloat(finalPrice) * parseInt(exchange))}
+                  </span>
+                )}
                 <span className="flex flex-row justify-center items-center ml-1">
                   USD
                   <ArrowRightIcon width={12} height={12} />

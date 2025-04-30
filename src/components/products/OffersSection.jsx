@@ -21,7 +21,6 @@ const OffersSection = ({ category }) => {
     setScrollRef,
   } = useProductsScroll();
   useEffect(() => {
-    console.log(data);
     setScrollRef();
   }, [data]);
   return (

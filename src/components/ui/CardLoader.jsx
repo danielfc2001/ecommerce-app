@@ -5,7 +5,7 @@ const Loader = ({ count = 2 }) => {
       {arr.map((el) => (
         <div
           key={el}
-          className="animate-pulse flex flex-col bg-white dark:bg-gray-800 shadow-sm border border-slate-200 dark:border-gray-700 rounded-lg w-64 h-80"
+          className="animate-pulse flex flex-col bg-white dark:bg-gray-800 shadow-sm border border-slate-200 dark:border-gray-700 rounded-lg w-full h-80"
         >
           {/* Imagen del loader */}
           <div className="bg-gray-300 dark:bg-gray-700 h-40 w-full rounded-t-lg"></div>

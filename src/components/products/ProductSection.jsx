@@ -32,7 +32,11 @@ const ProductSection = ({ category }) => {
       <h1 className="text-2xl text-center font-semibold dark:text-white">
         Our Products
       </h1>
-      {isError && <Message type={"error"} message={error.message} />}
+      {isError && (
+        <Message type={"error"}>
+          {error.message || "A ocurrido un error al recuperar los productos."}
+        </Message>
+      )}
       {isPending && (
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mt-5">
           <CardLoader count={10} />

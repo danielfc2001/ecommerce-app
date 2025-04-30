@@ -5,6 +5,7 @@ export const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
   const [exchange, setExchange] = useState(null);
+  const [isExchangeLoading, setIsExchangeLoading] = useState(true);
   const [theme, setTheme] = useState("light");
   useEffect(() => {
     // Configurar el tema inicial basado en el sistema o preferencia previa
@@ -18,11 +19,14 @@ export const ThemeProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    getExchangeRate().then((data) => {
-      if (data) {
-        setExchange(data.value);
-      }
-    });
+    setIsExchangeLoading(true);
+    getExchangeRate()
+      .then((data) => {
+        if (data) {
+          setExchange(data.value);
+        }
+      })
+      .finally(() => setIsExchangeLoading(false));
   }, []);
 
   const toggleTheme = () => {
@@ -36,7 +40,9 @@ export const ThemeProvider = ({ children }) => {
   };
 
   return (
-    <ThemeContext.Provider value={{ exchange, theme, toggleTheme }}>
+    <ThemeContext.Provider
+      value={{ exchange, isExchangeLoading, theme, toggleTheme }}
+    >
       {children}
     </ThemeContext.Provider>
   );
