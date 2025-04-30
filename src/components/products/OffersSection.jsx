@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import ProductCard from "../ProductCard";
 import ScrollButton from "./ScrollButton";
 import CardLoader from "../ui/CardLoader";
+import Message from "../ui/Message";
 
 const OffersSection = ({ category }) => {
   const { isError, isPending, error, data } = useQuery({
@@ -25,17 +26,18 @@ const OffersSection = ({ category }) => {
   }, [data]);
   return (
     <section className="w-full rounded-lg mt-5 p-2">
+      <h1 className="text-2xl text-center font-semibold dark:text-white">
+        Products Offers
+      </h1>
       {/* Mensajes de carga o error */}
       {isPending && (
-        <div className="w-full my-2">
-          <CardLoader />
+        <div className="relative">
+          <div className="flex overflow-x-auto gap-4 scrollbar-hide scroll-smooth py-3">
+            <CardLoader count={3} />
+          </div>
         </div>
       )}
-      {isError && (
-        <div className="w-full bg-red-500 text-white text-center rounded-md p-2 my-2">
-          {error.message}
-        </div>
-      )}
+      {isError && <Message type={"error"}>{error.message}</Message>}
 
       {/* Slider de productos */}
       {!isPending && !isError && (
@@ -60,7 +62,7 @@ const OffersSection = ({ category }) => {
                 alterCurrency={product.alterCurrency}
                 dispatchEvent={"button"}
                 view={"global"}
-                width={`80`}
+                width={`60`}
               />
             ))}
           </div>

@@ -3,6 +3,7 @@ import useProducts from "../hooks/useProducts";
 import SpinnerIcon from "./icons/SpinnerIcon";
 import TrashIcon from "./icons/TrashIcon";
 import { ThemeContext } from "../context/ThemeContext";
+import ArrowRightIcon from "./icons/ArrowRightIcon";
 
 const ProductCard = ({
   id,
@@ -26,13 +27,11 @@ const ProductCard = ({
     : price;
   return (
     <article
-      className={`flex flex-col bg-white dark:bg-gray-800 shadow-sm border border-slate-200 dark:border-gray-700 rounded-lg`}
+      className={`w-${width} w-60 flex flex-col bg-white dark:bg-gray-800 shadow-sm border border-slate-200 dark:border-gray-700 rounded-lg`}
     >
       {/* Imagen del producto */}
       <div
-        className={`${
-          `w-` + width
-        } relative h-64 overflow-hidden rounded-t-lg bg-clip-border z-30`}
+        className={`w-${width} relative h-64 overflow-hidden rounded-t-lg bg-clip-border z-30`}
       >
         <img
           src={img || `/images/image-not-found.png`}
@@ -47,7 +46,7 @@ const ProductCard = ({
       </div>
 
       {/* Detalles del producto */}
-      <div className={`flex flex-col justify-between px-3 py-2`}>
+      <div className={`flex flex-col justify-between px-2 py-2`}>
         <div className="flex flex-col items-center justify-between mb-2 ">
           <p className=" text-slate-800 dark:text-gray-200 text-lg font-semibold">
             {name}
@@ -65,9 +64,13 @@ const ProductCard = ({
               <span className="ml-1">{currency}</span>
             </p>
             {alterCurrency && (
-              <p className="text-cyan-600 dark:text-cyan-300 text-md font-semibold">
+              <p className="flex flex-row justify-end items-center text-cyan-700 dark:text-cyan-400 text-xs font-medium">
                 ${parseFloat(finalPrice) * parseInt(exchange)}
-                <span className="ml-1"></span>
+                <span className="flex flex-row justify-center items-center ml-1">
+                  USD
+                  <ArrowRightIcon width={12} height={12} />
+                  CUP
+                </span>
               </p>
             )}
           </div>

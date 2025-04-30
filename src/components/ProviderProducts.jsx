@@ -12,7 +12,7 @@ const ProviderProducts = () => {
 
   return (
     <section className="w-full">
-      <DashboardSearchBar className={`mt-5`} />
+      {/*       <DashboardSearchBar className={`mt-5`} /> */}
       {isSuccess && data.products.length > 0 && (
         <Message type={"success"}>
           Los productos han sido cargados satisfactoriamente
