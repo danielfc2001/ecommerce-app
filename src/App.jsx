@@ -18,6 +18,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Footer from "./components/ui/Footer";
+import ProductDescription from "./pages/ProductDescription";
+import ProductIndexPage from "./components/products/ProductIndexPage";
 
 const queryClient = new QueryClient();
 
@@ -33,7 +35,10 @@ const App = () => {
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
             </Route>
-            <Route path="/products" element={<Products />} />
+            <Route path="/products" element={<Products />}>
+              <Route index element={<ProductIndexPage />} />
+              <Route path=":id" element={<ProductDescription />} />
+            </Route>
             <Route
               path="/dashboard"
               element={

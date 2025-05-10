@@ -4,6 +4,7 @@ import SpinnerIcon from "./icons/SpinnerIcon";
 import TrashIcon from "./icons/TrashIcon";
 import { ThemeContext } from "../context/ThemeContext";
 import ArrowRightIcon from "./icons/ArrowRightIcon";
+import { Link, useNavigate } from "react-router-dom";
 
 const ProductCard = ({
   id,
@@ -18,16 +19,18 @@ const ProductCard = ({
   alterCurrency,
   dispatchEvent,
   view,
+  className,
   width,
 }) => {
   const { exchange, isExchangeLoading } = useContext(ThemeContext);
+  const navigate = useNavigate();
   const { pending, deleteProduct } = useProducts();
   const finalPrice = isOffer
     ? (price - (price * discount) / 100).toFixed(2)
     : price;
   return (
     <article
-      className={`w-${width} w-60 flex flex-col bg-white dark:bg-gray-800 shadow-sm border border-slate-200 dark:border-gray-700 rounded-lg`}
+      className={`${className} w-${width} w-60 flex flex-col bg-white dark:bg-gray-800 shadow-sm border border-slate-200 dark:border-gray-700 rounded-lg`}
     >
       {/* Imagen del producto */}
       <div
@@ -104,6 +107,7 @@ const ProductCard = ({
             className="rounded-md w-full mt-2 bg-cyan-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-cyan-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none cursor-pointer"
             type="button"
             disabled={stock === 0}
+            onClick={() => navigate(`/products/${id}`, { state: { id } })}
           >
             Detalles
           </button>
